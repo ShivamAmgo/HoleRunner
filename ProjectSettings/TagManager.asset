@@ -9,6 +9,8 @@ TagManager:
   - Collectible
   - Collector
   - Magnet
+  - KillZone
+  - Enemy
   layers:
   - Default
   - TransparentFX

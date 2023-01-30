@@ -15,6 +15,11 @@ public class MapFallOff : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.transform.root.CompareTag("Enemy"))
+        {
+            Destroy(other.transform.root.gameObject);
+            return;
+        }
         if (other.transform.root!=null)
         {
             Destroy(other.transform.gameObject);

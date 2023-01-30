@@ -161,8 +161,6 @@ public class PlayerMovement : MonoBehaviour
         }
         ragdollactivedelayed(activestatus);
 
-        
-        
     }
 
     public  void ragdollactivedelayed(bool activestatus)
