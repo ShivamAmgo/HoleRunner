@@ -12,25 +12,47 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private int MaxFleeRotation = 30;
     [SerializeField] private float Rotationduration = 0.6f;
     [SerializeField] private List<Rigidbody> RigRigidbodies;
+
+    [SerializeField] private float Speed = 3;
+
+    [SerializeField] private Vector3 FreeFallTorque;
+    //[SerializeField] private CapsuleCollider _capsuleCollider;
     float ChaosRotation=0;
     private bool Flee = false;
     private Tween YOYO;
+    private Tween FreeFall;
     private bool IsDead = false;
     private Vector3 StartPos;
-
+    private Transform Player;
     private void OnEnable()
     {
         KillZone.OnEnemyDetected += OnKillZoneDetected;
+        PlayerMovement.DeliverPlayerInfo += ReceivePlayer;
     }
 
     private void OnDisable()
     {
         KillZone.OnEnemyDetected -= OnKillZoneDetected;
+        PlayerMovement.DeliverPlayerInfo -= ReceivePlayer;
     }
+
+   
 
     private void Start()
     {
         StartPos = transform.position;
+    }
+
+    private void FixedUpdate()
+    {
+        if (Flee)
+        {
+            transform.position += transform.forward * Speed*Time.deltaTime;
+        }
+    }
+    private void ReceivePlayer(PlayerMovement player)
+    {
+        Player = player.transform;
     }
 
     private void OnKillZoneDetected(Transform t)
@@ -60,22 +82,21 @@ public class EnemyAI : MonoBehaviour
         float randomval = Random.Range(MinFleeRotation, MaxFleeRotation);
         ChaosRotation = -randomval;
         transform.eulerAngles = Vector3.zero;
-        transform.DORotate(new Vector3(0,ChaosRotation,0), Rotationduration).SetEase(Ease.Linear).OnComplete(() =>
-        {
-           YOYO= DOTween.To(() => ChaosRotation, value => ChaosRotation = value, randomval, Rotationduration)
-                .SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear)
-                .OnStart(() =>
+        YOYO= DOTween.To(() => ChaosRotation, value => ChaosRotation = value, randomval, Rotationduration)
+            .SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear)
+            .OnStart(() =>
+            {
+                //Debug.Log("RandomVal " + randomval + " chaosval " + ChaosRotation);
+            }).OnUpdate(
+                () =>
                 {
-                    Debug.Log("RandomVal " + randomval + " chaosval " + ChaosRotation);
-                }).OnUpdate(
-                    () =>
-                    {
-                        transform.eulerAngles = new Vector3(0, ChaosRotation, 0);
-                    });
-        });
+                    transform.eulerAngles = new Vector3(0, ChaosRotation, 0);
+                    
+                });
+        
         
         m_animator.SetTrigger("Run");
-        Debug.Log("rot va "+ChaosRotation);
+//        Debug.Log("rot va "+ChaosRotation);
     }
     public void RagdollActive(bool activestatus)
     {
@@ -102,18 +123,37 @@ public class EnemyAI : MonoBehaviour
         {
             return;
         }
-
-        IsDead = true;
-        YOYO.Kill();
-        RagdollActive(true);
-        SetCollision(false,Col);
         
+        IsDead = true;
+        Flee = false;
+        if (YOYO.IsActive())
+        {
+            YOYO.Kill();
+        }
+        
+        FreeFall=transform.DOLocalMove(Vector3.zero, 0.6f).SetEase(Ease.Linear).OnStart(() =>
+        {
+            RandomFallforce();
+        });
+        //RagdollActive(true);
+        SetCollision(false,Col);
+        transform.parent = Player;
+        
+
     }
 
+    void RandomFallforce()
+    {
+        foreach (Rigidbody rb in RigRigidbodies)
+        {
+            rb.AddTorque(new Vector3(Random.Range(-FreeFallTorque.x,FreeFallTorque.x),Random.Range(-FreeFallTorque.y,FreeFallTorque.y),
+                Random.Range(-FreeFallTorque.z,FreeFallTorque.z)),ForceMode.Impulse);
+        }
+    }
     public void Floored(Collider GroundCol)
     {
         
-
+        return;
         //IsDead = true;
         if (YOYO.IsActive())
         {
@@ -121,20 +161,32 @@ public class EnemyAI : MonoBehaviour
         }
         
         m_animator.enabled = false;
+        
         SetCollision(true,GroundCol);
         
     }
 
     void SetCollision(bool status,Collider GroundCol)
     {
+        RagdollActive(true);
+        
         Collider[] col = GetComponentsInChildren<Collider>();
         foreach (Collider c in col)
         {
             //transform.position
             c.enabled = true;
             transform.position = new Vector3(transform.position.x, StartPos.y, transform.position.z);
-            Physics.IgnoreCollision(GroundCol,c,status);
+            Physics.IgnoreCollision(GroundCol,c,!status);
             //c.enabled = status;
+        }
+        //_capsuleCollider.enabled = true;
+    }
+
+    private void OnDestroy()
+    {
+        if (FreeFall.IsActive())
+        {
+            FreeFall.Kill();
         }
     }
 }

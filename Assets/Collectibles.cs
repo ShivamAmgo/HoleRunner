@@ -44,7 +44,7 @@ public class Collectibles : MonoBehaviour
     {
         if (other.CompareTag("Collector"))
         {
-            OnCollectedItem?.Invoke(ValuePoints);
+            //OnCollectedItem?.Invoke(ValuePoints);
         }
 
         if (other.CompareTag("Magnet") && !Magnetism)

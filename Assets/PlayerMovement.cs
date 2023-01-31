@@ -2,9 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening; 
-
-
+using DG.Tweening;
+using Unity.VisualScripting;
 
 
 public class PlayerMovement : MonoBehaviour
@@ -27,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Joystick JoystickController;
     Vector3 ClampPlayerPosX=Vector3.zero;
     private bool IsDead = false;
+    public bool UseJoystick = true;
     public delegate void PlayerInfoRaise(PlayerMovement Player);
 
     public static event PlayerInfoRaise DeliverPlayerInfo;
@@ -70,7 +70,16 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnScaleChange(float ScaleVal)
     {
-        PlayerClampXPos -= ScaleVal;
+        Debug.Log("scale val "+ScaleVal);
+        if (ScaleVal<0)
+        {
+            PlayerClampXPos -= (ScaleVal*2);
+        }
+        if(ScaleVal>0)
+        {
+            PlayerClampXPos -= (ScaleVal*2);
+        }
+        
     }
     private void OnPlayerDead(Transform player)
     {
@@ -142,7 +151,15 @@ public class PlayerMovement : MonoBehaviour
         Vector3 playerpos = transform.position;
         playerpos.x += XAxismove;
         //transform.position = playerpos;
-        transform.position += (Vector3.right*XAxismove*Time.deltaTime*StrafeSpeed+Vector3.forward*Time.deltaTime*Speed*YAxisMove);
+        if (UseJoystick)
+        {
+            transform.position += (Vector3.right*XAxismove*Time.deltaTime*StrafeSpeed+Vector3.forward*Time.deltaTime*Speed*YAxisMove);
+        }
+        else
+        {
+            transform.position += (Vector3.right*XAxismove*Time.deltaTime*StrafeSpeed+Vector3.forward*Time.deltaTime*Speed);
+        }
+        
        
     }
 

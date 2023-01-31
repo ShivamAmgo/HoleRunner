@@ -12,6 +12,21 @@ public class PlayerScaler : MonoBehaviour
     [SerializeField] private PlayerMovement m_PlayerMovement;
     [SerializeField] private Transform TargetScaleObject;
     [SerializeField] private Transform m_Magnet;
+    private float ScalePoints=0;
+    public static PlayerScaler Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     private void OnEnable()
     {
         Collectibles.OnCollectedItem += AddScore;
@@ -23,32 +38,48 @@ public class PlayerScaler : MonoBehaviour
     }
 
     public void AddScore(float Points)
-    {
-        TotalScore += Points;
-        IncreaseSizeByScore(TotalScore);
+    { 
+        ScalePoints += Points;
+        TotalScore += ScalePoints;
+        IncreaseSizeByScore(ScalePoints);
+        Debug.Log("total Score "+TotalScore);
     }
 
     void IncreaseSizeByScore(float score)
     {
         Vector3 NewScale = TargetScaleObject.localScale;
-        if (NewScale.x>=MaxScaleLimit)
+        if (NewScale.x >= MaxScaleLimit && score>0)
         {
             return;
         }
-        if (TotalScore%ScoreFactor==0)
-        {
 
-            
-            NewScale .x+= ScaleIncreaseFactor;
-            NewScale.z += ScaleIncreaseFactor;
+        
+        if (score % ScoreFactor == 0)
+        {
+            int SFactor = (int)(score / ScoreFactor);
+           
+            NewScale.x += ScaleIncreaseFactor * SFactor;
+            NewScale.z += ScaleIncreaseFactor * SFactor;
             NewScale.y = TargetScaleObject.localScale.y;
+            if (NewScale.x<1)
+            {
+                ScalePoints = 0;
+                TargetScaleObject.localScale = new Vector3(1, TargetScaleObject.localScale.y, 1);
+                m_Magnet.localScale = new Vector3(1, m_Magnet.localScale.y, 1);
+                return;
+
+            }
             TargetScaleObject.localScale = NewScale;
             NewScale = m_Magnet.localScale;
-            NewScale .x+= ScaleIncreaseFactor;
-            NewScale. z+= ScaleIncreaseFactor;
+            NewScale.x += ScaleIncreaseFactor * SFactor;
+            NewScale.z += ScaleIncreaseFactor * SFactor;
             NewScale.y = m_Magnet.localScale.y;
             m_Magnet.localScale = NewScale;
-            m_PlayerMovement.OnScaleChange(ScaleIncreaseFactor);
+            ScalePoints = 0;
+           
+            m_PlayerMovement.OnScaleChange(ScaleIncreaseFactor*SFactor);
+            
         }
+        
     }
 }
