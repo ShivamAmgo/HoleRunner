@@ -10,7 +10,7 @@ public class Core : MonoBehaviour
     {
         if (other.CompareTag("Collectible") )
         {
-            Physics.IgnoreCollision(GroundCollider,other,true);
+            other.transform.GetComponentInParent<Collectibles>().CollectedItem(true,GroundCollider);
         }
 
         if (other.transform.root.CompareTag("Enemy"))
@@ -23,7 +23,7 @@ public class Core : MonoBehaviour
     {
         if (other.CompareTag("Collectible") )
         {
-            Physics.IgnoreCollision(GroundCollider,other,false);
+            other.transform.GetComponentInParent<Collectibles>().CollectedItem(false,GroundCollider);
         }
         if (other.transform.root.CompareTag("Enemy"))
         {

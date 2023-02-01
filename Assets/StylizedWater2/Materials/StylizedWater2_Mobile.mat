@@ -217,13 +217,13 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _AnimationParams: {r: 1, g: 1, b: 1, a: 0}
-    - _BaseColor: {r: 0, g: 0.27274978, b: 0.9339623, a: 0.9647059}
+    - _BaseColor: {r: 0.17123532, g: 0.40944028, b: 0.9811321, a: 0.9647059}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _DepthMapBounds: {r: -402.3, g: -459.43, b: 0.0012693577, a: 0}
     - _DistanceNormalParams: {r: 100, g: 300, b: 0.25, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 0.09803922}
-    - _HorizonColor: {r: 0.26225072, g: 0.6795426, b: 1, a: 0.9647059}
+    - _HorizonColor: {r: 0.5438323, g: 0.7360121, b: 0.9528302, a: 0.9647059}
     - _IntersectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShallowColor: {r: 0.4349858, g: 0.5872372, b: 0.8018868, a: 0.39607844}

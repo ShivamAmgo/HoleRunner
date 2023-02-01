@@ -10,11 +10,11 @@ public class KillZone : MonoBehaviour
    public static event OnEnemyDetection OnEnemyDetected;
    private void OnTriggerEnter(Collider other)
    {
-      
-      if (other.transform.root.CompareTag("Enemy"))
+      EnemyAI Enemey = other.transform.GetComponentInParent<EnemyAI>();
+      if (Enemey!=null)
       {
          //Debug.Log("Entered "+other.name);
-         OnEnemyDetected?.Invoke(other.transform.root);
+         OnEnemyDetected?.Invoke(Enemey.transform);
       }
    }
 }

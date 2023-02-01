@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         //PlayerAnim = GetComponent<Animator>();
         //RagdollActive(false);
         
-        Physics.gravity = new Vector3(0, -9.8f*3f, 0);
+        Physics.gravity = new Vector3(0, -9.8f*5f, 0);
         //PlayerAnim.SetTrigger("Run");
         
         DeliverPlayerInfo?.Invoke(this);

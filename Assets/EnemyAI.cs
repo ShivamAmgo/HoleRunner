@@ -12,10 +12,15 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private int MaxFleeRotation = 30;
     [SerializeField] private float Rotationduration = 0.6f;
     [SerializeField] private List<Rigidbody> RigRigidbodies;
-
+    [SerializeField] private float GroundOffset = 0.04f;
     [SerializeField] private float Speed = 3;
 
     [SerializeField] private Vector3 FreeFallTorque;
+
+    [SerializeField] private bool Sitting = false;
+    [SerializeField]Color DeathColor=Color.red;
+
+    [SerializeField] private SkinnedMeshRenderer m_Renderer;
     //[SerializeField] private CapsuleCollider _capsuleCollider;
     float ChaosRotation=0;
     private bool Flee = false;
@@ -24,6 +29,7 @@ public class EnemyAI : MonoBehaviour
     private bool IsDead = false;
     private Vector3 StartPos;
     private Transform Player;
+    private Material[] m_materials;
     private void OnEnable()
     {
         KillZone.OnEnemyDetected += OnKillZoneDetected;
@@ -41,6 +47,17 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         StartPos = transform.position;
+        m_materials = m_Renderer.materials;
+        if (Sitting)
+        {
+            m_animator.Play("Sitting");
+        }
+        else
+        {
+            StartPos.y = GroundOffset;
+            transform.position = StartPos;
+        }
+        
     }
 
     private void FixedUpdate()
@@ -82,6 +99,7 @@ public class EnemyAI : MonoBehaviour
         float randomval = Random.Range(MinFleeRotation, MaxFleeRotation);
         ChaosRotation = -randomval;
         transform.eulerAngles = Vector3.zero;
+        transform.position = new Vector3(transform.position.x, GroundOffset, transform.position.z);
         YOYO= DOTween.To(() => ChaosRotation, value => ChaosRotation = value, randomval, Rotationduration)
             .SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear)
             .OnStart(() =>
@@ -116,7 +134,7 @@ public class EnemyAI : MonoBehaviour
        // ragdollactivedelayed(activestatus);
 
     }
-
+    
     public void Dead(Collider Col)
     {
         if (IsDead)
@@ -130,7 +148,7 @@ public class EnemyAI : MonoBehaviour
         {
             YOYO.Kill();
         }
-        
+        ChangeColor();
         FreeFall=transform.DOLocalMove(Vector3.zero, 0.6f).SetEase(Ease.Linear).OnStart(() =>
         {
             RandomFallforce();
@@ -140,6 +158,17 @@ public class EnemyAI : MonoBehaviour
         transform.parent = Player;
         
 
+    }
+
+    void ChangeColor()
+    {
+        foreach (Material m in m_materials)
+        {
+            
+            //m.color = DeathColor;
+            m.DOColor(DeathColor, 0.35f).SetEase(Ease.Linear);
+
+        }
     }
 
     void RandomFallforce()
@@ -182,11 +211,13 @@ public class EnemyAI : MonoBehaviour
         //_capsuleCollider.enabled = true;
     }
 
+    public void KillTWeens()
+    {
+        FreeFall.Kill();
+        YOYO.Kill();
+    }
     private void OnDestroy()
     {
-        if (FreeFall.IsActive())
-        {
-            FreeFall.Kill();
-        }
+       
     }
 }

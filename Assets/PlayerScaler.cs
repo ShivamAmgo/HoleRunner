@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class PlayerScaler : MonoBehaviour
@@ -40,9 +41,9 @@ public class PlayerScaler : MonoBehaviour
     public void AddScore(float Points)
     { 
         ScalePoints += Points;
-        TotalScore += ScalePoints;
+        TotalScore += Points;
         IncreaseSizeByScore(ScalePoints);
-        Debug.Log("total Score "+TotalScore);
+        //Debug.Log("total Score "+TotalScore);
     }
 
     void IncreaseSizeByScore(float score)
@@ -50,11 +51,13 @@ public class PlayerScaler : MonoBehaviour
         Vector3 NewScale = TargetScaleObject.localScale;
         if (NewScale.x >= MaxScaleLimit && score>0)
         {
+            Debug.Log("returned Scale");
+            ScalePoints = 0;
             return;
         }
-
+        Debug.Log("scalePoints "+ScalePoints);
         
-        if (score % ScoreFactor == 0)
+        if (Mathf.Abs(score / ScoreFactor) >=1)
         {
             int SFactor = (int)(score / ScoreFactor);
            
@@ -69,7 +72,8 @@ public class PlayerScaler : MonoBehaviour
                 return;
 
             }
-            TargetScaleObject.localScale = NewScale;
+
+            TargetScaleObject.DOScale(NewScale, 0.25f);
             NewScale = m_Magnet.localScale;
             NewScale.x += ScaleIncreaseFactor * SFactor;
             NewScale.z += ScaleIncreaseFactor * SFactor;

@@ -12,7 +12,6 @@ public class Collector : MonoBehaviour
         if (d!=null)
         {
             d.DestroyIt();
-            
         }
     }
 }

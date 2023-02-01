@@ -24,7 +24,7 @@ public class Door : MonoBehaviour
         if (other.transform.CompareTag("Player"))
         {
             Used = true;
-            Debug.Log("Door");
+//            Debug.Log("Door");
             //GameManagerTelekenisis.Instance.ActivateAllies(AllieToSpawn,transform);
             foreach (Collider c in CollidersToDisable)
             {

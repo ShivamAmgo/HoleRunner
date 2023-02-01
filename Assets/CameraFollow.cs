@@ -59,6 +59,7 @@ public class CameraFollow : MonoBehaviour
    private void Start()
    {
       cameraposAfterCalculation = offset;
+      transform.eulerAngles=Vector3.zero;
       /*
       DOVirtual.DelayedCall(2, () =>
       {
