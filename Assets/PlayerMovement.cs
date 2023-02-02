@@ -49,25 +49,28 @@ public class PlayerMovement : MonoBehaviour
        
     }
     
-/*
+
     private void OnEnable()
     {
-        PlayerDamage.OnPlayerDead += OnPlayerDead;
-        LevelComplete.OnLevelComplete += OnLevelFinish;
+        FinishLine.OnFInishLineCrossed += FinishLineCrossed;
     }
+
+    
 
     private void OnDisable()
     {
-        PlayerDamage.OnPlayerDead -= OnPlayerDead;
-        LevelComplete.OnLevelComplete -= OnLevelFinish;
+        FinishLine.OnFInishLineCrossed -= FinishLineCrossed;
     }
-*/
+
     
     private void FixedUpdate()
     {
         DOMovement();
     }
-
+    private void FinishLineCrossed()
+    {
+        Speed = 0;
+    }
     public void OnScaleChange(float ScaleVal)
     {
         Debug.Log("scale val "+ScaleVal);

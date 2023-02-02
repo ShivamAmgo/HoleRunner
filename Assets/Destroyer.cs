@@ -26,6 +26,6 @@ public class Destroyer : MonoBehaviour
         {
             enemeyAI.KillTWeens();
         }
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
