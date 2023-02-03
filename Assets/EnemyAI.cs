@@ -19,6 +19,7 @@ public class EnemyAI : MonoBehaviour
 
     [SerializeField] private bool Sitting = false;
     [SerializeField]Color DeathColor=Color.red;
+     private Collider GroundCollider;
 
     [SerializeField] private SkinnedMeshRenderer m_Renderer;
     //[SerializeField] private CapsuleCollider _capsuleCollider;
@@ -27,6 +28,7 @@ public class EnemyAI : MonoBehaviour
     private Tween YOYO;
     private Tween FreeFall;
     private bool IsDead = false;
+    private bool IsFlying = false;
     private Vector3 StartPos;
     private Transform Player;
     private Material[] m_materials;
@@ -90,7 +92,7 @@ public class EnemyAI : MonoBehaviour
    
     void SetChaos()
     {
-        if (Flee)
+        if (Flee )
         {
             return;
         }
@@ -100,6 +102,11 @@ public class EnemyAI : MonoBehaviour
         ChaosRotation = -randomval;
         transform.eulerAngles = Vector3.zero;
         transform.position = new Vector3(transform.position.x, GroundOffset, transform.position.z);
+
+        if (IsFlying)
+        {
+            return;
+        }
         YOYO= DOTween.To(() => ChaosRotation, value => ChaosRotation = value, randomval, Rotationduration)
             .SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear)
             .OnStart(() =>
@@ -118,8 +125,7 @@ public class EnemyAI : MonoBehaviour
     }
     public void RagdollActive(bool activestatus)
     {
-        if (activestatus)
-        {
+        
             //m_animator.SetTrigger("Dead");
             m_animator.enabled = !activestatus;
             foreach (Rigidbody rb in RigRigidbodies)
@@ -130,13 +136,21 @@ public class EnemyAI : MonoBehaviour
             return;
             //StartCoroutine(ragdollactivedelayed(activestatus));
             
-        }
+        
        // ragdollactivedelayed(activestatus);
 
     }
-    
+
+    public void Fly()
+    {
+        KillTWeens();
+        RagdollActive(false);
+        
+        
+    }
     public void Dead(Collider Col)
     {
+        GroundCollider = Col;
         if (IsDead)
         {
             return;
@@ -153,7 +167,7 @@ public class EnemyAI : MonoBehaviour
         {
             RandomFallforce();
         });
-        //RagdollActive(true);
+        RagdollActive(true);
         SetCollision(false,Col);
         transform.parent = Player;
         
@@ -181,7 +195,7 @@ public class EnemyAI : MonoBehaviour
     }
     public void Floored(Collider GroundCol)
     {
-        
+        //RagdollActive(true);
         return;
         //IsDead = true;
         if (YOYO.IsActive())
@@ -197,7 +211,7 @@ public class EnemyAI : MonoBehaviour
 
     void SetCollision(bool status,Collider GroundCol)
     {
-        RagdollActive(true);
+        
         
         Collider[] col = GetComponentsInChildren<Collider>();
         foreach (Collider c in col)
@@ -205,7 +219,7 @@ public class EnemyAI : MonoBehaviour
             //transform.position
             c.enabled = true;
             transform.position = new Vector3(transform.position.x, StartPos.y, transform.position.z);
-            Physics.IgnoreCollision(GroundCol,c,!status);
+            Physics.IgnoreCollision(GroundCollider,c,!status);
             //c.enabled = status;
         }
         //_capsuleCollider.enabled = true;

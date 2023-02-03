@@ -6,6 +6,23 @@ using UnityEngine;
 public class Core : MonoBehaviour
 {
     [SerializeField] private Collider GroundCollider;
+    [SerializeField] private Collider CoreCollider;
+
+    private void OnEnable()
+    {
+        FinishLine.OnFInishLineCrossed += OnFinishLine;
+    }
+
+   
+    private void OnDisable()
+    {
+        FinishLine.OnFInishLineCrossed -= OnFinishLine;
+    }
+    private void OnFinishLine()
+    {
+        CoreCollider.enabled = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Collectible") )

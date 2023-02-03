@@ -283,10 +283,11 @@ GameObject:
   - component: {fileID: 5704126979198603744}
   - component: {fileID: 2180785578717848033}
   - component: {fileID: 2626950930227414668}
+  - component: {fileID: 898481132}
   m_Layer: 12
   m_Name: Enemy
   m_TagString: Enemy
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -357,7 +358,7 @@ MonoBehaviour:
   - {fileID: 2180785577527997704}
   - {fileID: 2180785577694391240}
   GroundOffset: 0.04
-  Speed: 6
+  Speed: 5
   FreeFallTorque: {x: 500, y: 100, z: 800}
   Sitting: 0
   DeathColor: {r: 0.41509432, g: 0.40138838, b: 0.40138838, a: 1}
@@ -377,6 +378,27 @@ MonoBehaviour:
   Enemy: 1
   Points: 10
   enemeyAI: {fileID: 2180785578717848033}
+--- !u!114 &898481132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333871689743159584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 150eafa0a1af35a45bf974cfb00d9b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemy: 1
+  RB: {fileID: 0}
+  FreeFallTorque: {x: 0, y: 0, z: 0}
+  Force: {x: 0, y: 0, z: 0}
+  _enemyAI: {fileID: 2180785578717848033}
+  MidAIrRotationDuration: 1.5
+  FlySpeed: 30
+  ProjectileRange: {x: 0, y: 4, z: 50}
+  FlyRot: {x: -30, y: 0, z: 0}
 --- !u!1 &2043673903376838199
 GameObject:
   m_ObjectHideFlags: 0

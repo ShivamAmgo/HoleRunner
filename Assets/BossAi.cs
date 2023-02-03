@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -23,6 +24,21 @@ public class BossAi : MonoBehaviour
    private Tween Walktween;
    private bool IsGrounded = false;
 
+   public delegate void OnHit(Transform HitObj);
+
+   public static event OnHit OnShotHit;
+   public static BossAi Instance { get; private set; }
+   private void Awake()
+   {
+      if (Instance != null && Instance != this) 
+      { 
+         Destroy(this); 
+      } 
+      else 
+      { 
+         Instance = this; 
+      }
+   }
    private void OnEnable()
    {
       FinishLine.OnFInishLineCrossed += ActivateBoss;
@@ -130,6 +146,12 @@ public class BossAi : MonoBehaviour
          CombatMode();
          Walktween.Kill();
       }
+      else if (other.CompareTag("Enemy") || other.CompareTag("Collectible"))
+      {
+         Debug.Log("enetered "+other.name);
+          OnShotHit?.Invoke(other.transform.root);
+      }
+      
    }
    
 }

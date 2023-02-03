@@ -51,11 +51,11 @@ public class PlayerScaler : MonoBehaviour
         Vector3 NewScale = TargetScaleObject.localScale;
         if (NewScale.x >= MaxScaleLimit && score>0)
         {
-            Debug.Log("returned Scale");
+           // Debug.Log("returned Scale");
             ScalePoints = 0;
             return;
         }
-        Debug.Log("scalePoints "+ScalePoints);
+//        Debug.Log("scalePoints "+ScalePoints);
         
         if (Mathf.Abs(score / ScoreFactor) >=1)
         {
