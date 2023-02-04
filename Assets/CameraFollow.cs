@@ -39,11 +39,7 @@ public class CameraFollow : MonoBehaviour
       }
    }
 
-   private void OnEnable()
-   {
-     
-   }
-
+ 
    private void ReceivePlayer(Transform player)
    {
       Target = player;
@@ -141,8 +137,8 @@ public class CameraFollow : MonoBehaviour
       Target = FollowTarget;
    }
 
-   private void OnDisable()
+   public void CameraShake()
    {
-    
+      ChildCamera.DOShakePosition(1, 2, 3, 4).SetEase(Ease.Linear);
    }
 }

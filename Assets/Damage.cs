@@ -13,7 +13,23 @@ public class Damage : MonoBehaviour
 
     public static event Die OnDead;
     private bool IsDead = false;
-    
+    private bool damagable = true;
+
+    private void OnEnable()
+    {
+        HoleManager.OnWin += CheckOnWin;
+    }
+
+    private void OnDisable()
+    {
+        HoleManager.OnWin-= CheckOnWin;
+    }
+
+    private void CheckOnWin(bool winstatus)
+    {
+        damagable = false;
+    }
+
     private void Start()
     {
         currenthealth = MaxHealth;
@@ -21,7 +37,7 @@ public class Damage : MonoBehaviour
 
     public void DamageIt(float damage)
     {
-        if (IsDead)
+        if (IsDead || !damagable)
         {
             return;
         }
@@ -31,7 +47,12 @@ public class Damage : MonoBehaviour
             IsDead = true;
             Dead();
         }
-        Debug.Log(transform+" Health "+currenthealth);
+
+        if (transform.tag=="Player")
+        {
+            CameraFollow.Instance.CameraShake();
+        }
+//        Debug.Log(transform+" Health "+currenthealth);
     }
 
     void Dead()

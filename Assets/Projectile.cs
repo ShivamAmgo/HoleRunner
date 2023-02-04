@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
    [SerializeField] private bool Enemy = false;
    //[SerializeField] private Transform ShootPoint;
    [SerializeField] private Rigidbody RB;
+   [SerializeField] private float HitDamage = 10;
    [SerializeField] private Vector3 FreeFallTorque;
    [SerializeField] private Vector3 Force;
    [SerializeField] private EnemyAI _enemyAI;
@@ -20,6 +21,9 @@ public class Projectile : MonoBehaviour
    [SerializeField] private Vector3 ProjectileRange;
    [SerializeField]Vector3 FlyRot=new Vector3(-60,0,0);
    private bool FinalHit = false;
+   private Tween FlyRotTweeen;
+   private Tween ragdollTween;
+   [SerializeField] private GameObject HitFX;
    private void OnEnable()
    {
       BossAi.OnShotHit += BossHit;
@@ -29,7 +33,7 @@ public class Projectile : MonoBehaviour
 
    private void OnDisable()
    {
-      BossAi.OnShotHit += BossHit;
+      BossAi.OnShotHit -= BossHit;
    }
 
    private void Start()
@@ -58,11 +62,23 @@ public class Projectile : MonoBehaviour
       }
 
       FinalHit = true;
+      BossAi.Instance.transform.GetComponent<Damage>().DamageIt(HitDamage);
       if (Enemy)
       {
-         _enemyAI.RagdollActive(true);
+         Debug.Log("Boss HItted");
+         FLy = false;
+        _enemyAI.BossHitted();
+         if (FlyRotTweeen.IsActive())
+         {
+            FlyRotTweeen.Kill();
+         }
+         ragdollTween.Kill();
+         
       }
+      //PlayHitFX(BossAi.Instance.transform);
    }
+
+   
    public void Launch(Transform ShootPoint)
    {
       transform.SetParent(null);
@@ -86,12 +102,20 @@ public class Projectile : MonoBehaviour
       transform.eulerAngles = FlyRot;
       m_animator.SetTrigger("Fly");
       FLy = true;
-      DOTween.To(() => FlyRot.x, value =>FlyRot.x  = value, -FlyRot.x, MidAIrRotationDuration).SetEase(Ease.Linear)
+      FlyRotTweeen= DOTween.To(() => FlyRot.x, value =>FlyRot.x  = value, -FlyRot.x, MidAIrRotationDuration).SetEase(Ease.Linear)
          .OnUpdate(() =>
          {
             
             transform.eulerAngles = FlyRot;
+           
             
+         }).OnStart(() =>
+         {
+            ragdollTween = DOVirtual.DelayedCall(MidAIrRotationDuration - 0.15f, () =>
+            {
+               _enemyAI.RagdollActive(true);
+               _enemyAI.SetCollision(true,null);
+            });
          });
       //transform.DOMoveZ(transform.position.z + ProjectileRange.z,MidAIrRotationDuration).SetEase(Ease.Linear);
 

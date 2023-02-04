@@ -12,6 +12,7 @@ TagManager:
   - KillZone
   - Enemy
   - Boss
+  - MagnetPower
   layers:
   - Default
   - TransparentFX
@@ -27,8 +28,8 @@ TagManager:
   - NoCollision
   - Enemy
   - Boss
-  - 
-  - 
+  - Gears
+  - Powers
   - 
   - 
   - 

@@ -55,7 +55,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -225,8 +225,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.5
-      minScalar: 0.8
+      scalar: 0.5
+      minScalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -6158,6 +6158,7 @@ GameObject:
   - component: {fileID: 6777672833581537951}
   - component: {fileID: 6777672833581537950}
   - component: {fileID: 6777672833581537944}
+  - component: {fileID: 1416470596}
   m_Layer: 13
   m_Name: BOSS
   m_TagString: Boss
@@ -6253,6 +6254,25 @@ MonoBehaviour:
   Weapons:
   - {fileID: 44094445}
   - {fileID: 507871409}
+  _colliders:
+  - {fileID: 1416470596}
+  - {fileID: 6777672833581537951}
+  RagdollBodies:
+  - {fileID: 6777672832999945003}
+  - {fileID: 6777672833691659660}
+  - {fileID: 6777672834202004121}
+  - {fileID: 6777672834271840022}
+  - {fileID: 6777672833753245560}
+  - {fileID: 6777672833386064076}
+  - {fileID: 6777672832974970416}
+  - {fileID: 6777672834223999440}
+  - {fileID: 6777672834173003104}
+  - {fileID: 6777672834268724045}
+  - {fileID: 6777672832579690591}
+  BossMesh:
+  - {fileID: 3990705813806600214}
+  - {fileID: 6777672833020705665}
+  - {fileID: 6777672833636633111}
 --- !u!114 &6777672833581537944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6266,6 +6286,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 100
+--- !u!65 &1416470596
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5966786107383373264}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.18, y: 13.88, z: 3}
+  m_Center: {x: 0, y: 5.83, z: 0}
 --- !u!1 &6633806596177011399
 GameObject:
   m_ObjectHideFlags: 0
@@ -6586,9 +6619,10 @@ GameObject:
   - component: {fileID: 6777672832964662595}
   - component: {fileID: 6777672832964662621}
   - component: {fileID: 6777672832964662620}
+  - component: {fileID: 839724426}
   m_Layer: 13
   m_Name: HeadWitchHat
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6658,6 +6692,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &839724426
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6777672832964662594}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4169394560655713582, guid: d2b76686160810b41ac7adbfe69e2475, type: 3}
 --- !u!1 &6777672833020705665
 GameObject:
   m_ObjectHideFlags: 0
@@ -6669,7 +6717,7 @@ GameObject:
   - component: {fileID: 6777672833020705666}
   m_Layer: 13
   m_Name: HeadGear
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6706,9 +6754,10 @@ GameObject:
   - component: {fileID: 6777672833035225051}
   - component: {fileID: 6777672833035225045}
   - component: {fileID: 6777672833035225044}
+  - component: {fileID: 301890260}
   m_Layer: 13
   m_Name: HeadViking
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6778,6 +6827,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &301890260
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6777672833035225050}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4898374915208088907, guid: d2b76686160810b41ac7adbfe69e2475, type: 3}
 --- !u!1 &6777672833182688900
 GameObject:
   m_ObjectHideFlags: 0
@@ -7118,9 +7181,10 @@ GameObject:
   - component: {fileID: 6777672834030671485}
   - component: {fileID: 6777672834030671487}
   - component: {fileID: 6777672834030671486}
+  - component: {fileID: 212178095}
   m_Layer: 13
   m_Name: HeadCrown
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7190,6 +7254,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &212178095
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6777672834030671484}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8030680343450892080, guid: d2b76686160810b41ac7adbfe69e2475, type: 3}
 --- !u!1 &6777672834104736338
 GameObject:
   m_ObjectHideFlags: 0
@@ -7201,9 +7279,10 @@ GameObject:
   - component: {fileID: 6777672834104736339}
   - component: {fileID: 6777672834104736365}
   - component: {fileID: 6777672834104736364}
+  - component: {fileID: 1042396781}
   m_Layer: 13
   m_Name: HeadKnight
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7273,6 +7352,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1042396781
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6777672834104736338}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8316588538680133296, guid: d2b76686160810b41ac7adbfe69e2475, type: 3}
 --- !u!1 &6786841733625196152
 GameObject:
   m_ObjectHideFlags: 0

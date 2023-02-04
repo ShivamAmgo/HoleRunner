@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Magnet : MonoBehaviour
 {
-    [SerializeField] private GameObject MagnetFx;
+    [SerializeField] private GameObject[] MagnetFx;
     [SerializeField] private Collider MagnetCollider;
     [SerializeField] private float MagnetDuration = 3;
 
@@ -14,18 +14,31 @@ public class Magnet : MonoBehaviour
 
     public static event Magnetism OnMagnetActive;
     private bool MAgnetActive = false;
+
+    private void OnEnable()
+    {
+        PropRotation.OnMagnetCollect += MagnetActivation;
+    }
+
+    private void OnDisable()
+    {
+        PropRotation.OnMagnetCollect -= MagnetActivation;
+    }
+
     private void Start()
     {
         MagnetCollider.enabled = false;
-        MagnetFx.SetActive(false);
+        
     }
-    private void Update()
+
+    private void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
             ActivateMagnet();
         }
     }
+
     public void ActivateMagnet()
     {
         if (MAgnetActive)
@@ -46,13 +59,16 @@ public class Magnet : MonoBehaviour
     
     void PlayMagnetFX()
     {
-        MagnetFx.SetActive(false);
-        MagnetFx.SetActive(true);
+        foreach (GameObject obj in MagnetFx)
+        {
+            obj.SetActive(false);
+            obj.SetActive(true);
+        }
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void MagnetActivation()
     {
-        
+        ActivateMagnet();
     }
 }

@@ -36,15 +36,21 @@ public class EnemyAI : MonoBehaviour
     {
         KillZone.OnEnemyDetected += OnKillZoneDetected;
         PlayerMovement.DeliverPlayerInfo += ReceivePlayer;
+        FinishLine.OnFInishLineCrossed += OnLineCrossed;
+        //BossAi.OnShotHit += BossHitted;
     }
+
+    
 
     private void OnDisable()
     {
         KillZone.OnEnemyDetected -= OnKillZoneDetected;
         PlayerMovement.DeliverPlayerInfo -= ReceivePlayer;
+        FinishLine.OnFInishLineCrossed -= OnLineCrossed;
+        //BossAi.OnShotHit -= BossHitted;
     }
 
-   
+    
 
     private void Start()
     {
@@ -68,6 +74,16 @@ public class EnemyAI : MonoBehaviour
         {
             transform.position += transform.forward * Speed*Time.deltaTime;
         }
+    }
+    private void OnLineCrossed()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void BossHitted()
+    {
+        RagdollActive(true);
+        SetCollision(true,GroundCollider);
     }
     private void ReceivePlayer(PlayerMovement player)
     {
@@ -143,14 +159,16 @@ public class EnemyAI : MonoBehaviour
 
     public void Fly()
     {
+        IsFlying = true;
         KillTWeens();
         RagdollActive(false);
-        
+        SetCollision(true,GroundCollider);
         
     }
     public void Dead(Collider Col)
     {
         GroundCollider = Col;
+        //Debug.Log("Colname "+GroundCollider.transform.name);
         if (IsDead)
         {
             return;
@@ -209,17 +227,27 @@ public class EnemyAI : MonoBehaviour
         
     }
 
-    void SetCollision(bool status,Collider GroundCol)
+    public void SetCollision(bool status,Collider GroundCol)
     {
         
-        
+//        Debug.Log(transform.name+" Collision "+ status);
         Collider[] col = GetComponentsInChildren<Collider>();
         foreach (Collider c in col)
         {
             //transform.position
             c.enabled = true;
-            transform.position = new Vector3(transform.position.x, StartPos.y, transform.position.z);
-            Physics.IgnoreCollision(GroundCollider,c,!status);
+            if (!IsFlying)
+            {
+                transform.position = new Vector3(transform.position.x, StartPos.y, transform.position.z);
+            }
+            
+            if (GroundCollider!=null)
+            {
+                
+                Physics.IgnoreCollision(GroundCollider,c,!status);
+                //Debug.Log("Col Setted"+Physics.GetIgnoreCollision(GroundCollider,c));
+            }
+            
             //c.enabled = status;
         }
         //_capsuleCollider.enabled = true;
@@ -230,8 +258,12 @@ public class EnemyAI : MonoBehaviour
         FreeFall.Kill();
         YOYO.Kill();
     }
-    private void OnDestroy()
+
+    private void OnTriggerEnter(Collider other)
     {
-       
+        if (other.CompareTag("Finish") && !IsFlying)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

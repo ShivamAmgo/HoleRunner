@@ -9,19 +9,28 @@ public class Collector : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private Transform ShootPoint;
     [SerializeField]float AttackRate=1;
+    [SerializeField] private GameObject ShootFX;
+    [SerializeField] private GameObject CollectFX;
+    [SerializeField] private Collider _collider; 
     private List<Transform> CollectedItems = new List<Transform>();
     private bool Shooting = false;
     private bool Collectable = true;
+    private Tween SHootingTween;
 
     private void OnEnable()
     {
         FinishLine.OnFInishLineCrossed += Shootable;
+        HoleManager.OnWin += CheckWin;
+
     }
 
     private void OnDisable()
     {
         FinishLine.OnFInishLineCrossed -= Shootable;
+        HoleManager.OnWin -= CheckWin;
     }
+
+   
 
     private void FixedUpdate()
     {
@@ -36,11 +45,22 @@ public class Collector : MonoBehaviour
             Shoot();
         }
     }
+    private void CheckWin(bool winstatus)
+    {
+        if (!winstatus)
+        {
+            
+        }
+
+        SHootingTween.Kill();
+        Shooting = false;
+    }
 
     void Shootable()
     {
         Shooting = true;
         Collectable = false;
+        _collider.enabled = false;
     }
     private void Shoot()
     {
@@ -48,14 +68,15 @@ public class Collector : MonoBehaviour
         {
             return;
         }
-
-        DOVirtual.DelayedCall(AttackRate, () =>
+        ShootFX.SetActive(false);
+        ShootFX.SetActive(true);
+        SHootingTween= DOVirtual.DelayedCall(AttackRate, () =>
         {
             Shooting = true;
         });
         CollectedItems[0].GetComponent<Projectile>().Launch(ShootPoint);
         
-        Debug.Log("Items "+CollectedItems.Count+" "+CollectedItems[0].name);
+//        Debug.Log("Items "+CollectedItems.Count+" "+CollectedItems[0].name);
         CollectedItems.Remove(CollectedItems[0]);
     }
 
@@ -70,6 +91,8 @@ public class Collector : MonoBehaviour
         {
             d.DestroyIt();
             CollectedItems.Add(d.transform);
+            CollectFX.SetActive(false);
+            CollectFX.SetActive(true);
         }
     }
     

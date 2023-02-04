@@ -7,7 +7,7 @@ public class Core : MonoBehaviour
 {
     [SerializeField] private Collider GroundCollider;
     [SerializeField] private Collider CoreCollider;
-
+    
     private void OnEnable()
     {
         FinishLine.OnFInishLineCrossed += OnFinishLine;
@@ -28,11 +28,13 @@ public class Core : MonoBehaviour
         if (other.CompareTag("Collectible") )
         {
             other.transform.GetComponentInParent<Collectibles>().CollectedItem(true,GroundCollider);
+         
         }
 
         if (other.transform.root.CompareTag("Enemy"))
         {
             other.transform.root.GetComponent<EnemyAI>().Dead(GroundCollider);
+            
         }
     }
 

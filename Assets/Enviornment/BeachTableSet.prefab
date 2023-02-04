@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce2ae5950fa00c47be281328cc5e861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MagneticSpeed: 2.5
+  MagneticSpeed: 3.5
   Collectable: 1
 --- !u!114 &7184336269103674196
 MonoBehaviour:
@@ -161,8 +161,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemy: 0
   RB: {fileID: 7184336269103674198}
+  HitDamage: 10
   FreeFallTorque: {x: 0, y: 0, z: 0}
   Force: {x: 0, y: 50, z: 50}
+  _enemyAI: {fileID: 0}
+  MidAIrRotationDuration: 1.5
+  FlySpeed: 5
+  ProjectileRange: {x: 0, y: 0, z: 0}
+  FlyRot: {x: -60, y: 0, z: 0}
+  HitFX: {fileID: 0}
 --- !u!1 &7184336268179585854
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce2ae5950fa00c47be281328cc5e861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MagneticSpeed: 2.5
+  MagneticSpeed: 3.5
   Collectable: 1
 --- !u!64 &7184336268179585840
 MeshCollider:
@@ -324,8 +331,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemy: 0
   RB: {fileID: 7184336268179585843}
+  HitDamage: 10
   FreeFallTorque: {x: 0, y: 0, z: 0}
   Force: {x: 0, y: 50, z: 50}
+  _enemyAI: {fileID: 0}
+  MidAIrRotationDuration: 1.5
+  FlySpeed: 5
+  ProjectileRange: {x: 0, y: 0, z: 0}
+  FlyRot: {x: -60, y: 0, z: 0}
+  HitFX: {fileID: 0}
 --- !u!1 &7184336268583943764
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce2ae5950fa00c47be281328cc5e861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MagneticSpeed: 2.5
+  MagneticSpeed: 3.5
   Collectable: 1
 --- !u!64 &7184336268583943758
 MeshCollider:
@@ -487,8 +501,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemy: 0
   RB: {fileID: 7184336268583943753}
+  HitDamage: 10
   FreeFallTorque: {x: 0, y: 0, z: 0}
   Force: {x: 0, y: 50, z: 50}
+  _enemyAI: {fileID: 0}
+  MidAIrRotationDuration: 1.5
+  FlySpeed: 5
+  ProjectileRange: {x: 0, y: 0, z: 0}
+  FlyRot: {x: -60, y: 0, z: 0}
+  HitFX: {fileID: 0}
 --- !u!1 &8030632904852853712
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce2ae5950fa00c47be281328cc5e861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MagneticSpeed: 2.5
+  MagneticSpeed: 0
   Collectable: 0
 --- !u!114 &7184336268085465458
 MonoBehaviour:
@@ -801,7 +822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce2ae5950fa00c47be281328cc5e861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MagneticSpeed: 2.5
+  MagneticSpeed: 3.5
   Collectable: 1
 --- !u!114 &7184336268826026855
 MonoBehaviour:
@@ -832,5 +853,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemy: 0
   RB: {fileID: 7184336268826026849}
+  HitDamage: 10
   FreeFallTorque: {x: 0, y: 0, z: 0}
   Force: {x: 0, y: 50, z: 50}
+  _enemyAI: {fileID: 0}
+  MidAIrRotationDuration: 1.5
+  FlySpeed: 5
+  ProjectileRange: {x: 0, y: 0, z: 0}
+  FlyRot: {x: -60, y: 0, z: 0}
+  HitFX: {fileID: 0}
