@@ -27,7 +27,7 @@ public class Core : MonoBehaviour
     {
         if (other.CompareTag("Collectible") )
         {
-            other.transform.GetComponentInParent<Collectibles>().CollectedItem(true,GroundCollider);
+            other.transform.GetComponentInParent<Collectibles>().CollectedItem(false,GroundCollider);
          
         }
 
@@ -42,7 +42,7 @@ public class Core : MonoBehaviour
     {
         if (other.CompareTag("Collectible") )
         {
-            other.transform.GetComponentInParent<Collectibles>().CollectedItem(false,GroundCollider);
+            other.transform.GetComponentInParent<Collectibles>().CollectedItem(true,GroundCollider);
         }
         if (other.transform.root.CompareTag("Enemy"))
         {

@@ -13,13 +13,13 @@ public class Collectibles : MonoBehaviour
     private bool Magnetism = false;
     private Transform Player;
     private Rigidbody Rb;
-    private Collider[] Colliders;
+    [SerializeField]private Collider[] Colliders;
     [SerializeField] private bool Collectable = true;
     private void Start()
     {
         Rb = GetComponent<Rigidbody>();
         Magnetism = false;
-        Colliders = GetComponentsInChildren<Collider>();
+        //Colliders = GetComponentsInChildren<Collider>();
         Rb.isKinematic = true;
     }
 
@@ -63,7 +63,7 @@ public class Collectibles : MonoBehaviour
     {
         if (Rb.isKinematic)
         {
-            Rb.isKinematic = !CollideStatus;
+            Rb.isKinematic = CollideStatus;
         }
 
         if (!Collectable)
@@ -72,7 +72,8 @@ public class Collectibles : MonoBehaviour
         }
         foreach (Collider c in Colliders)
         {
-            Physics.IgnoreCollision(groundCol,c,CollideStatus);
+            Physics.IgnoreCollision(groundCol,c,!CollideStatus);
+            //Debug.Log(transform.name);
         }
         
     }

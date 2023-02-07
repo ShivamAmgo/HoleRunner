@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         FinishLine.OnFInishLineCrossed += FinishLineCrossed;
+        HoleManager.OnWin += OnWIn;
     }
 
     
@@ -60,9 +61,15 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
         FinishLine.OnFInishLineCrossed -= FinishLineCrossed;
+        HoleManager.OnWin += OnWIn;
     }
 
-    
+    private void OnWIn(bool winstatus)
+    {
+        this.enabled = false;
+    }
+
+
     private void FixedUpdate()
     {
         DOMovement();

@@ -10,7 +10,7 @@ public class Collector : MonoBehaviour
     [SerializeField] private Transform ShootPoint;
     [SerializeField]float AttackRate=1;
     [SerializeField] private GameObject ShootFX;
-    [SerializeField] private GameObject CollectFX;
+    [SerializeField] private GameObject[] CollectFX;
     [SerializeField] private Collider _collider; 
     private List<Transform> CollectedItems = new List<Transform>();
     private bool Shooting = false;
@@ -91,8 +91,16 @@ public class Collector : MonoBehaviour
         {
             d.DestroyIt();
             CollectedItems.Add(d.transform);
-            CollectFX.SetActive(false);
-            CollectFX.SetActive(true);
+            PlayFx();
+        }
+    }
+
+    void PlayFx()
+    {
+        foreach (GameObject obj in CollectFX)
+        {
+            obj.SetActive(false);
+            obj.SetActive(true);
         }
     }
     

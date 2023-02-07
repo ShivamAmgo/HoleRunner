@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour
    private bool FinalHit = false;
    private Tween FlyRotTweeen;
    private Tween ragdollTween;
-   [SerializeField] private GameObject HitFX;
+   
    private void OnEnable()
    {
       BossAi.OnShotHit += BossHit;

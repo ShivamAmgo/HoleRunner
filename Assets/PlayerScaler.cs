@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerScaler : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class PlayerScaler : MonoBehaviour
     [SerializeField] private PlayerMovement m_PlayerMovement;
     [SerializeField] private Transform TargetScaleObject;
     [SerializeField] private Transform m_Magnet;
+    [SerializeField] private TextMeshPro ScoreText;
     private float ScalePoints=0;
     public static PlayerScaler Instance { get; private set; }
 
@@ -42,6 +45,9 @@ public class PlayerScaler : MonoBehaviour
     { 
         ScalePoints += Points;
         TotalScore += Points;
+        
+        ScoreText.text = TotalScore + "";
+        
         IncreaseSizeByScore(ScalePoints);
         //Debug.Log("total Score "+TotalScore);
     }
