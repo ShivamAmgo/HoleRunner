@@ -22,6 +22,7 @@ public class CameraFollow : MonoBehaviour
    //[SerializeField] private float CameraRotationFromFOcusPoint = 60;
    [SerializeField] private Transform FocusPointBack;
    private Vector3 cameraposAfterCalculation = Vector3.zero;
+   Vector3 CamPos=Vector3.zero;
    public static CameraFollow Instance{ get; private set; }
    public delegate void CameraFocusGhost();
 
@@ -71,7 +72,9 @@ public class CameraFollow : MonoBehaviour
       if (follow)
       {
          
-         transform.position = Target.position - NormalOffsetFromtransform;
+         CamPos = Target.position - NormalOffsetFromtransform;
+         CamPos.x = 00;
+         transform.position = CamPos;
       }
 
       if (CinematicCamera)

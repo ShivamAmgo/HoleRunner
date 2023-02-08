@@ -12,6 +12,7 @@ public class HoleManager : MonoBehaviour
 
 
     [SerializeField] private GameObject[] Win_Lose_Panel;
+    [SerializeField] private int StartSceneIndex = 0;
     public delegate void IncreasePlayerSize(float Size);
 
     public delegate void WinStatus(bool WinStatus);
@@ -30,6 +31,7 @@ public class HoleManager : MonoBehaviour
         { 
             Instance = this; 
         }
+        Application.targetFrameRate=60;
     }
 
     private void OnEnable()
@@ -95,7 +97,7 @@ public class HoleManager : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(StartSceneIndex);
         }
     }
     private void Update()

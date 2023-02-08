@@ -17,6 +17,7 @@ public class PlayerScaler : MonoBehaviour
     [SerializeField] private Transform m_Magnet;
     [SerializeField] private TextMeshPro ScoreText;
     private float ScalePoints=0;
+    private Vector3 MagnetScaleAtStart;
     public static PlayerScaler Instance { get; private set; }
 
     private void Awake()
@@ -39,6 +40,11 @@ public class PlayerScaler : MonoBehaviour
     private void OnDisable()
     {
         Collectibles.OnCollectedItem -= AddScore;
+    }
+
+    private void Start()
+    {
+        MagnetScaleAtStart = m_Magnet.localScale;
     }
 
     public void AddScore(float Points)
@@ -74,7 +80,7 @@ public class PlayerScaler : MonoBehaviour
             {
                 ScalePoints = 0;
                 TargetScaleObject.localScale = new Vector3(1, TargetScaleObject.localScale.y, 1);
-                m_Magnet.localScale = new Vector3(1, m_Magnet.localScale.y, 1);
+                m_Magnet.localScale = MagnetScaleAtStart;
                 return;
 
             }
@@ -83,7 +89,7 @@ public class PlayerScaler : MonoBehaviour
             NewScale = m_Magnet.localScale;
             NewScale.x += ScaleIncreaseFactor * SFactor;
             NewScale.z += ScaleIncreaseFactor * SFactor;
-            NewScale.y = m_Magnet.localScale.y;
+            NewScale.y = 0.1f;
             m_Magnet.localScale = NewScale;
             ScalePoints = 0;
            

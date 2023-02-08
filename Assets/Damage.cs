@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Damage : MonoBehaviour
 {
     
     [SerializeField] private float MaxHealth = 100;
+    [SerializeField] private Image FillBar;
     private float currenthealth = 0;
 
     public delegate void Die(Transform Deadguy);
@@ -44,13 +46,20 @@ public class Damage : MonoBehaviour
         currenthealth -= damage;
         if (currenthealth<=0)
         {
+            
             IsDead = true;
             Dead();
+            currenthealth = 0;
         }
 
         if (transform.tag=="Player")
         {
             CameraFollow.Instance.CameraShake();
+        }
+
+        if (FillBar!=null)
+        {
+            FillBar.fillAmount = 1-(1 - (currenthealth / MaxHealth));
         }
 //        Debug.Log(transform+" Health "+currenthealth);
     }

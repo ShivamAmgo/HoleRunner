@@ -11,12 +11,15 @@ public class Collector : MonoBehaviour
     [SerializeField]float AttackRate=1;
     [SerializeField] private GameObject ShootFX;
     [SerializeField] private GameObject[] CollectFX;
-    [SerializeField] private Collider _collider; 
+    [SerializeField] private Collider _collider;
+    [SerializeField] private GameObject Fillbar;
+    [SerializeField] private GameObject ScoreText;
     private List<Transform> CollectedItems = new List<Transform>();
     private bool Shooting = false;
     private bool Collectable = true;
     private Tween SHootingTween;
-
+    private Touch _touch;
+    private bool IsEditor = false;
     private void OnEnable()
     {
         FinishLine.OnFInishLineCrossed += Shootable;
@@ -30,7 +33,15 @@ public class Collector : MonoBehaviour
         HoleManager.OnWin -= CheckWin;
     }
 
-   
+    private void Start()
+    {
+        if (Application.isEditor)
+        {
+            IsEditor = true;
+        }
+        ScoreText.SetActive(true);
+        Fillbar.SetActive(false);
+    }
 
     private void FixedUpdate()
     {
@@ -38,8 +49,24 @@ public class Collector : MonoBehaviour
         {
             return;
         }
-
+        /*
         if (Input.GetMouseButton(0))
+        {
+            Shooting = false;
+            Shoot();
+        }
+        */
+        if (IsEditor)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                Shooting = false;
+                Shoot();
+            }
+            return;
+        }
+        _touch = Input.GetTouch(0);
+        if (_touch.tapCount>1)
         {
             Shooting = false;
             Shoot();
@@ -61,6 +88,8 @@ public class Collector : MonoBehaviour
         Shooting = true;
         Collectable = false;
         _collider.enabled = false;
+        ScoreText.SetActive(false);
+        Fillbar.SetActive(true);
     }
     private void Shoot()
     {
@@ -68,6 +97,7 @@ public class Collector : MonoBehaviour
         {
             return;
         }
+        
         ShootFX.SetActive(false);
         ShootFX.SetActive(true);
         SHootingTween= DOVirtual.DelayedCall(AttackRate, () =>
@@ -76,7 +106,7 @@ public class Collector : MonoBehaviour
         });
         CollectedItems[0].GetComponent<Projectile>().Launch(ShootPoint);
         
-//        Debug.Log("Items "+CollectedItems.Count+" "+CollectedItems[0].name);
+        //Debug.Log("Items "+CollectedItems.Count+" "+CollectedItems[0].name);
         CollectedItems.Remove(CollectedItems[0]);
     }
 

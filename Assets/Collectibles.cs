@@ -83,7 +83,7 @@ public class Collectibles : MonoBehaviour
         {
             Vector3 Dir = Player.position - transform.position;
             Dir.y=0;
-            Debug.Log("direction "+Dir);
+            //Debug.Log("direction "+Dir);
             transform.position += Dir * MagneticSpeed * Time.deltaTime;
         }
     }

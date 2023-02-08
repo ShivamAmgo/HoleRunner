@@ -13,7 +13,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float Rotationduration = 0.6f;
     [SerializeField] private List<Rigidbody> RigRigidbodies;
     [SerializeField] private float GroundOffset = 0.04f;
-    [SerializeField] private float Speed = 3;
+    [SerializeField] private float RunSpeed = 13;
 
     [SerializeField] private Vector3 FreeFallTorque;
 
@@ -72,7 +72,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (Flee)
         {
-            transform.position += transform.forward * Speed*Time.deltaTime;
+            transform.position += transform.forward * RunSpeed*Time.deltaTime;
         }
     }
     private void OnLineCrossed()

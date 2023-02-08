@@ -359,7 +359,7 @@ MonoBehaviour:
   - {fileID: 2180785577527997704}
   - {fileID: 2180785577694391240}
   GroundOffset: 0.04
-  Speed: 5
+  Speed: 13
   FreeFallTorque: {x: 500, y: 100, z: 800}
   Sitting: 0
   DeathColor: {r: 0.41509432, g: 0.40138838, b: 0.40138838, a: 1}
@@ -401,7 +401,6 @@ MonoBehaviour:
   FlySpeed: 30
   ProjectileRange: {x: 0, y: 4, z: 50}
   FlyRot: {x: -30, y: 0, z: 0}
-  HitFX: {fileID: 0}
 --- !u!136 &2024649331
 CapsuleCollider:
   m_ObjectHideFlags: 0
