@@ -16,6 +16,7 @@ public class PlayerScaler : MonoBehaviour
     [SerializeField] private Transform TargetScaleObject;
     [SerializeField] private Transform m_Magnet;
     [SerializeField] private TextMeshPro ScoreText;
+    [SerializeField] private GameObject DeathFX;
     private float ScalePoints=0;
     private Vector3 MagnetScaleAtStart;
     public static PlayerScaler Instance { get; private set; }
@@ -35,12 +36,16 @@ public class PlayerScaler : MonoBehaviour
     private void OnEnable()
     {
         Collectibles.OnCollectedItem += AddScore;
+        HoleManager.OnWin += OnWinCheck;
     }
 
     private void OnDisable()
     {
         Collectibles.OnCollectedItem -= AddScore;
+        HoleManager.OnWin -= OnWinCheck;
     }
+
+    
 
     private void Start()
     {
@@ -97,5 +102,25 @@ public class PlayerScaler : MonoBehaviour
             
         }
         
+    }
+    private void OnWinCheck(bool winstatus)
+    {
+        if (winstatus)
+        {
+            return;
+        }
+        TargetScaleObject.DOScale(0, 1f).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            DeathFX.SetActive(false);
+            DeathFX.SetActive(true);
+        });
+    }
+
+    public void PowerUp(string Powername,float PowerValue)
+    {
+        if (Powername=="Hole")
+        {
+            
+        }
     }
 }

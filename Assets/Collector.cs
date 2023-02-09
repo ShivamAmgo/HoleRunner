@@ -15,6 +15,7 @@ public class Collector : MonoBehaviour
     [SerializeField] private GameObject Fillbar;
     [SerializeField] private GameObject ScoreText;
     private List<Transform> CollectedItems = new List<Transform>();
+    [SerializeField]GameObject SuckFX;
     private bool Shooting = false;
     private bool Collectable = true;
     private Tween SHootingTween;
@@ -90,6 +91,7 @@ public class Collector : MonoBehaviour
         _collider.enabled = false;
         ScoreText.SetActive(false);
         Fillbar.SetActive(true);
+        SuckFX.SetActive(false);
     }
     private void Shoot()
     {

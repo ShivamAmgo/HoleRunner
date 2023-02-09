@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Unity.VisualScripting;
+using UnityEngine.EventSystems;
 
 
 public class PlayerMovement : MonoBehaviour
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 ClampPlayerPosX = Vector3.zero;
     private bool IsDead = false;
     public bool UseJoystick = true;
+    private bool IsEditor = false;
 
     public delegate void PlayerInfoRaise(PlayerMovement Player);
 
@@ -45,6 +47,10 @@ public class PlayerMovement : MonoBehaviour
         //RagdollActive(false);
 
         Physics.gravity = new Vector3(0, -9.8f * 5f, 0);
+        if (Application.isEditor)
+        {
+            IsEditor = true;
+        }
         //PlayerAnim.SetTrigger("Run");
 
         DeliverPlayerInfo?.Invoke(this);
@@ -68,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
     {
         StrafeSpeed = 0;
         Speed = 0;
+       
     }
 
 
@@ -76,9 +83,34 @@ public class PlayerMovement : MonoBehaviour
         DOMovement();
     }
 
+    private void Update()
+    {
+        if (!isMoving && EventSystem.current.IsPointerOverGameObject())
+        {
+            Debug.Log("UI");
+            return;
+        }
+        if (IsEditor)
+        {
+            if (!isMoving && Input.GetMouseButtonDown(0))
+            {
+                isMoving = true;
+            }
+        }
+        else
+        {
+            if (!isMoving && Input.GetTouch(0).tapCount>0 )
+            {
+                isMoving = true;
+            
+            }
+        }
+       
+    }
+
     private void FinishLineCrossed()
     {
-        Speed = 0;
+        isMoving = false;
     }
 
     public void OnScaleChange(float ScaleVal)
@@ -110,12 +142,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void DOMovement()
     {
-        if (IsDead)
+        if (IsDead || !isMoving)
         {
             return;
         }
 
-        if (Application.isEditor)
+        if (IsEditor)
         {
             posX = Input.GetAxis("Mouse X");
             //posX = JoystickController.Horizontal;
