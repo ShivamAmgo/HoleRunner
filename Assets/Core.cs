@@ -5,19 +5,32 @@ using UnityEngine;
 
 public class Core : MonoBehaviour
 {
-    [SerializeField] private Collider GroundCollider;
-    [SerializeField] private Collider CoreCollider;
     
+    [SerializeField] private Collider CoreCollider;
+    private Collider GroundCollider;
     private void OnEnable()
     {
         FinishLine.OnFInishLineCrossed += OnFinishLine;
+        Ground.OnGroundInfo += RecieveGround;
     }
 
    
     private void OnDisable()
     {
         FinishLine.OnFInishLineCrossed -= OnFinishLine;
+        Ground.OnGroundInfo -= RecieveGround;
     }
+
+    private void RecieveGround(Collider ground)
+    {
+        GroundCollider = ground;
+    }
+
+    private void Start()
+    {
+        
+    }
+
     private void OnFinishLine()
     {
         CoreCollider.enabled = false;
@@ -28,7 +41,7 @@ public class Core : MonoBehaviour
         if (other.CompareTag("Collectible") )
         {
             other.transform.GetComponentInParent<Collectibles>().CollectedItem(false,GroundCollider);
-         
+            //Physics.IgnoreCollision(GroundCollider,other,true);
         }
 
         if (other.transform.root.CompareTag("Enemy"))
@@ -43,6 +56,7 @@ public class Core : MonoBehaviour
         if (other.CompareTag("Collectible") )
         {
             other.transform.GetComponentInParent<Collectibles>().CollectedItem(true,GroundCollider);
+            //Physics.IgnoreCollision(GroundCollider,other,false);
         }
         if (other.transform.root.CompareTag("Enemy"))
         {

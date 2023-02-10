@@ -7,6 +7,7 @@ public class FinishLine : MonoBehaviour
 {
     [SerializeField] private GameObject[] WinFX;
     [SerializeField] private GameObject[] DisableObjectsOnWIn;
+    [SerializeField] private Transform BossPlatform;
 
     public delegate void OnFInishLine();
 
@@ -23,6 +24,13 @@ public class FinishLine : MonoBehaviour
     {
         HoleManager.OnWin -= OnWin;
         FinishLine.OnFInishLineCrossed -= OnfinishLineCrossed;
+    }
+
+    private void Start()
+    {
+        Vector3 tempPos = BossPlatform.position;
+        tempPos.y = 0;
+        BossPlatform.position = tempPos;
     }
 
     private void OnfinishLineCrossed()

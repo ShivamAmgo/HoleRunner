@@ -59,7 +59,7 @@ public class Collector : MonoBehaviour
         */
         if (IsEditor)
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 Shooting = false;
                 Shoot();
@@ -67,7 +67,7 @@ public class Collector : MonoBehaviour
             return;
         }
         _touch = Input.GetTouch(0);
-        if (_touch.tapCount>1)
+        if (_touch.tapCount>0)
         {
             Shooting = false;
             Shoot();

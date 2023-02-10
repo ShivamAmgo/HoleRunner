@@ -493,7 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d8cd9d8deedab46bcc3dab1d6392de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  MaxHealth: 150
   FillBar: {fileID: 1755922204}
 --- !u!65 &1888370442
 BoxCollider:
@@ -506,7 +506,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 21.08, y: 8.28, z: 4.54}
+  m_Size: {x: 21.08, y: 8.28, z: 4.87}
   m_Center: {x: 0, y: 0, z: 3.0579796}
 --- !u!1 &1981889590
 GameObject:
@@ -709,7 +709,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c758c8e35886464cae690245c696323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GroundCollider: {fileID: 0}
   CoreCollider: {fileID: 5053005650590328490}
 --- !u!1 &5053005650599122548
 GameObject:
@@ -738,7 +737,7 @@ Transform:
   m_GameObject: {fileID: 5053005650599122548}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -4.37, z: 0}
-  m_LocalScale: {x: 1.63, y: 0.01, z: 1.63}
+  m_LocalScale: {x: 24.24, y: 0.01, z: 24.24}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5053005651466847132}
@@ -837,7 +836,7 @@ MonoBehaviour:
   StrafeSpeed: 8
   RotateSpeed: 350
   PlayerAnim: {fileID: 0}
-  isMoving: 1
+  isMoving: 0
   posX: 0
   YAxisMove: 0
   PlayerClampXPos: 6
@@ -857,7 +856,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScoreFactor: 50
   ScaleIncreaseFactor: 0.25
-  MaxScaleLimit: 2.25
+  MaxScaleLimit: 2.5
   m_PlayerMovement: {fileID: 5053005650760522497}
   TargetScaleObject: {fileID: 5053005651466847132}
   m_Magnet: {fileID: 5053005652287274750}
@@ -1114,7 +1113,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5053005651317048386}
   - {fileID: 5053005651249443211}

@@ -20,7 +20,11 @@ public class Collectibles : MonoBehaviour
         Rb = GetComponent<Rigidbody>();
         Magnetism = false;
         //Colliders = GetComponentsInChildren<Collider>();
-        Rb.isKinematic = true;
+        if (Collectable)
+        {
+            Rb.isKinematic = false;
+        }
+        
     }
 
     private void OnEnable()
@@ -43,7 +47,7 @@ public class Collectibles : MonoBehaviour
     private void OnMagnetActive(bool activestatus)
     {
         Magnetism = activestatus;
-        Rb.isKinematic = !activestatus;
+        //Rb.isKinematic = !activestatus;
     }
 
     private void OnTriggerEnter(Collider other)

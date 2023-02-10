@@ -37,12 +37,14 @@ public class PlayerScaler : MonoBehaviour
     {
         Collectibles.OnCollectedItem += AddScore;
         HoleManager.OnWin += OnWinCheck;
+        ButtonCloser.OnPowerSelect += PowerUp;
     }
 
     private void OnDisable()
     {
         Collectibles.OnCollectedItem -= AddScore;
         HoleManager.OnWin -= OnWinCheck;
+        ButtonCloser.OnPowerSelect -= PowerUp;
     }
 
     
@@ -109,7 +111,11 @@ public class PlayerScaler : MonoBehaviour
         {
             return;
         }
-        TargetScaleObject.DOScale(0, 1f).SetEase(Ease.Linear).OnComplete(() =>
+        Vector3 NewScale = TargetScaleObject.localScale;
+        NewScale.x = 0;
+        NewScale.z = 0;
+        NewScale.y = TargetScaleObject.localScale.y;
+        TargetScaleObject.DOScale(NewScale, 1f).SetEase(Ease.Linear).OnComplete(() =>
         {
             DeathFX.SetActive(false);
             DeathFX.SetActive(true);
@@ -120,7 +126,12 @@ public class PlayerScaler : MonoBehaviour
     {
         if (Powername=="Hole")
         {
-            
+            IncreaseSizeByScore(ScoreFactor*PowerValue);
         }
+        else if (Powername=="Magnet")
+        {
+            m_Magnet.localScale *= PowerValue;
+        }
+        
     }
 }

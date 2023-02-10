@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,21 @@ public class ButtonCloser : MonoBehaviour
     public delegate void PowerUps(string PowerName, float PowerValue);
 
     public static event PowerUps OnPowerSelect;
+
+    private void OnEnable()
+    {
+        HoleManager.OnROundStart += RoundStarted;
+    }
+
+    private void OnDisable()
+    {
+        HoleManager.OnROundStart -= RoundStarted;
+    }
+
+    private void RoundStarted()
+    {
+        DisableObjects();
+    }
 
     void DisableObjects()
     {

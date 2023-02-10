@@ -61,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
     {
         FinishLine.OnFInishLineCrossed += FinishLineCrossed;
         HoleManager.OnWin += OnWIn;
+        HoleManager.OnROundStart += RoundStarted;
     }
 
 
@@ -68,6 +69,12 @@ public class PlayerMovement : MonoBehaviour
     {
         FinishLine.OnFInishLineCrossed -= FinishLineCrossed;
         HoleManager.OnWin += OnWIn;
+        HoleManager.OnROundStart -= RoundStarted;
+    }
+
+    private void RoundStarted()
+    {
+        isMoving = true;
     }
 
     private void OnWIn(bool winstatus)
@@ -107,10 +114,13 @@ public class PlayerMovement : MonoBehaviour
         }
        
     }
-
+    
     private void FinishLineCrossed()
     {
-        isMoving = false;
+        //isMoving = false;
+        Speed = 0;
+        StrafeSpeed = 0;
+        transform.DOMoveX(0, 1).SetEase(Ease.Linear);
     }
 
     public void OnScaleChange(float ScaleVal)
