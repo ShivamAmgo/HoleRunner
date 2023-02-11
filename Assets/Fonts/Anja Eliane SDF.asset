@@ -64,7 +64,8 @@ MonoBehaviour:
   materialHashCode: -2145580353
   m_Version: 1.1.0
   m_SourceFontFileGUID: 50fef5efc7f6eba41bbd90bbaeca077d
-  m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 50fef5efc7f6eba41bbd90bbaeca077d, type: 3}
+  m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 50fef5efc7f6eba41bbd90bbaeca077d,
+    type: 3}
   m_SourceFontFile: {fileID: 12800000, guid: 50fef5efc7f6eba41bbd90bbaeca077d, type: 3}
   m_AtlasPopulationMode: 1
   m_FaceInfo:
@@ -171,6 +172,20 @@ MonoBehaviour:
       m_Y: 403
       m_Width: 33
       m_Height: 36
+    m_Scale: 1
+    m_AtlasIndex: 0
+  - m_Index: 13
+    m_Metrics:
+      m_Width: 48.515625
+      m_Height: 49.046875
+      m_HorizontalBearingX: 6.203125
+      m_HorizontalBearingY: 56.34375
+      m_HorizontalAdvance: 60.90625
+    m_GlyphRect:
+      m_X: 366
+      m_Y: 10
+      m_Width: 49
+      m_Height: 50
     m_Scale: 1
     m_AtlasIndex: 0
   - m_Index: 15
@@ -1055,20 +1070,6 @@ MonoBehaviour:
       m_Height: 73
     m_Scale: 1
     m_AtlasIndex: 0
-  - m_Index: 13
-    m_Metrics:
-      m_Width: 48.515625
-      m_Height: 49.046875
-      m_HorizontalBearingX: 6.203125
-      m_HorizontalBearingY: 56.34375
-      m_HorizontalAdvance: 60.90625
-    m_GlyphRect:
-      m_X: 366
-      m_Y: 10
-      m_Width: 49
-      m_Height: 50
-    m_Scale: 1
-    m_AtlasIndex: 0
   m_CharacterTable:
   - m_ElementType: 1
     m_Unicode: 32
@@ -1093,6 +1094,10 @@ MonoBehaviour:
   - m_ElementType: 1
     m_Unicode: 42
     m_GlyphIndex: 12
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 43
+    m_GlyphIndex: 13
     m_Scale: 1
   - m_ElementType: 1
     m_Unicode: 45
@@ -1345,10 +1350,6 @@ MonoBehaviour:
   - m_ElementType: 1
     m_Unicode: 121
     m_GlyphIndex: 83
-    m_Scale: 1
-  - m_ElementType: 1
-    m_Unicode: 43
-    m_GlyphIndex: 13
     m_Scale: 1
   m_AtlasTextures:
   - {fileID: -5474279081288528958}
@@ -3976,8 +3977,7 @@ MonoBehaviour:
           m_YAdvance: 0
       m_FeatureLookupFlags: 0
   fallbackFontAssets: []
-  m_FallbackFontAssetTable:
-  - {fileID: 11400000, guid: cbcbd17d4ae160d49ba21bbca9ed25d3, type: 2}
+  m_FallbackFontAssetTable: []
   m_CreationSettings:
     sourceFontFileName: 
     sourceFontFileGUID: 50fef5efc7f6eba41bbd90bbaeca077d

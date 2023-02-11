@@ -24,9 +24,10 @@ public class HoleManager : MonoBehaviour
     public static event RoundStart OnROundStart;
     public static event WinStatus OnWin;
     public static event IncreasePlayerSize OnPlayerScaling;
-    public static HoleManager Instance { get; private set; }
+    
     private Transform Player;
     private bool IsEditor = false;
+    public static HoleManager Instance { get; private set; }
     private void Awake()
     {
         if (Instance != null && Instance != this) 

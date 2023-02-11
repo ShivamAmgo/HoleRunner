@@ -109,6 +109,7 @@ public class PlayerScaler : MonoBehaviour
     {
         if (winstatus)
         {
+            ScoreManager.Instance.CalculateCoins(TotalScore);
             return;
         }
         Vector3 NewScale = TargetScaleObject.localScale;

@@ -9,7 +9,8 @@ public class ButtonCloser : MonoBehaviour
 
     [SerializeField] string PowerName = "Hole";
     [SerializeField]float PowerValue=1.5f;
-
+    [SerializeField] private float Cost = 150;
+    [SerializeField] private bool Testing = true;
     public delegate void PowerUps(string PowerName, float PowerValue);
 
     public static event PowerUps OnPowerSelect;
@@ -40,7 +41,24 @@ public class ButtonCloser : MonoBehaviour
     public void SetPowerUp()
     {
         
-        OnPowerSelect?.Invoke(PowerName,PowerValue);
+        float TempCoins = 0;
+        if (PlayerPrefs.HasKey("Coins"))
+        {
+          TempCoins   = PlayerPrefs.GetFloat("Coins");
+        }
+        Debug.Log("setting "+TempCoins);
+        if (TempCoins>=Cost)
+        {
+            Debug.Log( Cost+ " Deducted from "+ TempCoins+" Remains : "+(TempCoins-Cost));
+            if (!Testing)
+            {
+                PlayerPrefs.SetFloat("Coins",(TempCoins-Cost));
+            }
+            
+            OnPowerSelect?.Invoke(PowerName,PowerValue);//Targeting PlayerScaler Script
+        }
+
+        
         DisableObjects();
         
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Destroyer : MonoBehaviour
 {
-    [SerializeField] bool Enemy = false;
+    //[SerializeField] bool Enemy = false;
     [SerializeField] private float Points = 10;
     [SerializeField] private EnemyAI enemeyAI;
     private bool Used = false;

@@ -132,8 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c60e4fe022429a4892afe8344c20fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: 0
-  Points: 10
+  Points: 30
   enemeyAI: {fileID: 0}
 --- !u!114 &4796439326929326195
 MonoBehaviour:
@@ -305,8 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c60e4fe022429a4892afe8344c20fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: 0
-  Points: 10
+  Points: 30
   enemeyAI: {fileID: 0}
 --- !u!114 &4796439326004263073
 MonoBehaviour:
@@ -513,8 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c60e4fe022429a4892afe8344c20fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: 0
-  Points: 10
+  Points: 30
   enemeyAI: {fileID: 0}
 --- !u!114 &4796439326243616235
 MonoBehaviour:
@@ -686,8 +683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c60e4fe022429a4892afe8344c20fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: 0
-  Points: 10
+  Points: 30
   enemeyAI: {fileID: 0}
 --- !u!114 &4796439327361550811
 MonoBehaviour:
