@@ -223,10 +223,10 @@ Material:
     - _DistanceNormalParams: {r: 100, g: 300, b: 0.25, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 0.23921569}
-    - _HorizonColor: {r: 0.5438323, g: 0.7360121, b: 0.9528302, a: 0.9647059}
+    - _HorizonColor: {r: 0.45641106, g: 0.6795426, b: 0.93011117, a: 0.9647059}
     - _IntersectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ShallowColor: {r: 0.4349858, g: 0.5872372, b: 0.8018868, a: 0.39607844}
+    - _ShallowColor: {r: 0.46207705, g: 0.68668544, b: 0.9386859, a: 0.39607844}
     - _SlopeParams: {r: 0.5, g: 4, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _TranslucencyParams: {r: 1, g: 4, b: 0, a: 0}

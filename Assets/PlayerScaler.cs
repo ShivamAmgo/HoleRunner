@@ -17,6 +17,8 @@ public class PlayerScaler : MonoBehaviour
     [SerializeField] private Transform m_Magnet;
     [SerializeField] private TextMeshPro ScoreText;
     [SerializeField] private GameObject DeathFX;
+    
+    [SerializeField] private AudioClip ScaleUpSFX;
     private float ScalePoints=0;
     private Vector3 MagnetScaleAtStart;
     public static PlayerScaler Instance { get; private set; }
@@ -101,7 +103,7 @@ public class PlayerScaler : MonoBehaviour
             ScalePoints = 0;
            
             m_PlayerMovement.OnScaleChange(ScaleIncreaseFactor*SFactor);
-            
+            AudioManager.Instance.PlaySound("Prop",ScaleUpSFX);
         }
         
     }
@@ -133,6 +135,6 @@ public class PlayerScaler : MonoBehaviour
         {
             m_Magnet.localScale *= PowerValue;
         }
-        
+        AudioManager.Instance.PlaySound("Prop",ScaleUpSFX);
     }
 }

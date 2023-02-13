@@ -6,6 +6,7 @@ using UnityEngine;
 public class HITFx : MonoBehaviour
 {
     [SerializeField] private GameObject FX;
+    [SerializeField] private AudioClip[] HItSfx;
     private void OnEnable()
     {
         BossAi.OnShotHit += OnBossHit;
@@ -21,5 +22,6 @@ public class HITFx : MonoBehaviour
         FX.transform.position = hitobj.position;
         FX.SetActive(false);
         FX.SetActive(true);
+        AudioManager.Instance.PlaySound("Prop",HItSfx[0]);
     }
 }

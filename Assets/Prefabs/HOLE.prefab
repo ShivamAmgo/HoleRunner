@@ -776,6 +776,8 @@ MonoBehaviour:
   _collider: {fileID: 5053005650599122546}
   Fillbar: {fileID: 1981889590}
   ScoreText: {fileID: 592874421}
+  CollectSFX: {fileID: 8300000, guid: efdc4f35de0b3e04fa18df549c68e418, type: 3}
+  ShootSFX: {fileID: 8300000, guid: 39153d4df14142e4397da9e00d723132, type: 3}
   SuckFX: {fileID: 5053005651081706081}
 --- !u!1 &5053005650760522499
 GameObject:
@@ -862,6 +864,7 @@ MonoBehaviour:
   m_Magnet: {fileID: 5053005652287274750}
   ScoreText: {fileID: 592874423}
   DeathFX: {fileID: 5053005651900967563}
+  ScaleUpSFX: {fileID: 8300000, guid: 0641ae623971561489f8629e16041db2, type: 3}
 --- !u!135 &5053005650760522751
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1256,6 +1259,7 @@ MonoBehaviour:
   - {fileID: 5053005650676267263}
   MagnetCollider: {fileID: 5053005652287274751}
   MagnetDuration: 2
+  MagnetSFX: {fileID: 8300000, guid: 52af4d82f228ef541923dce490d2f38e, type: 3}
 --- !u!1 &5053005652400751812
 GameObject:
   m_ObjectHideFlags: 0

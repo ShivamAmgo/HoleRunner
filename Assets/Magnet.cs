@@ -9,7 +9,7 @@ public class Magnet : MonoBehaviour
     [SerializeField] private GameObject[] MagnetFx;
     [SerializeField] private Collider MagnetCollider;
     [SerializeField] private float MagnetDuration = 3;
-
+    [SerializeField] private AudioClip MagnetSFX;
     public delegate void Magnetism(bool Activestatus);
 
     public static event Magnetism OnMagnetActive;
@@ -45,7 +45,7 @@ public class Magnet : MonoBehaviour
         {
             return;
         }
-
+        
         MAgnetActive = true;
         MagnetCollider.enabled = true;
         DOVirtual.DelayedCall(MagnetDuration, () =>
@@ -70,5 +70,6 @@ public class Magnet : MonoBehaviour
     public void MagnetActivation()
     {
         ActivateMagnet();
+        AudioManager.Instance.PlaySound("Enemy",MagnetSFX);
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Damage : MonoBehaviour
@@ -34,6 +35,13 @@ public class Damage : MonoBehaviour
 
     private void Start()
     {
+        
+        if (transform.tag=="Boss")
+        {
+            float health;
+            health = (SceneManager.GetActiveScene().buildIndex+1)*20;
+            MaxHealth += health;
+        }
         currenthealth = MaxHealth;
     }
 

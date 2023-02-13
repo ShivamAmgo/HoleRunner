@@ -14,6 +14,8 @@ public class Collector : MonoBehaviour
     [SerializeField] private Collider _collider;
     [SerializeField] private GameObject Fillbar;
     [SerializeField] private GameObject ScoreText;
+    [SerializeField] private AudioClip CollectSFX;
+    [SerializeField] private AudioClip ShootSFX;
     private List<Transform> CollectedItems = new List<Transform>();
     [SerializeField]GameObject SuckFX;
     private bool Shooting = false;
@@ -99,7 +101,7 @@ public class Collector : MonoBehaviour
         {
             return;
         }
-        
+        AudioManager.Instance.PlaySound("Player",ShootSFX);
         ShootFX.SetActive(false);
         ShootFX.SetActive(true);
         SHootingTween= DOVirtual.DelayedCall(AttackRate, () =>
@@ -125,6 +127,7 @@ public class Collector : MonoBehaviour
             CollectedItems.Add(d.transform);
             PlayFx();
         }
+        AudioManager.Instance.PlaySound("Player",CollectSFX);
     }
 
     void PlayFx()

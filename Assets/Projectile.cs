@@ -66,7 +66,7 @@ public class Projectile : MonoBehaviour
         {
             return;
         }
-
+       
         FinalHit = true;
         BossAi.Instance.transform.GetComponent<Damage>().DamageIt(HitDamage);
         if (Enemy)

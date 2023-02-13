@@ -18,12 +18,13 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private Vector3 FreeFallTorque;
 
     [SerializeField] private bool Sitting = false;
-    [SerializeField]Color DeathColor=Color.red;
-     private Collider GroundCollider;
+    [SerializeField] Color DeathColor = Color.red;
+    private Collider GroundCollider;
 
     [SerializeField] private SkinnedMeshRenderer m_Renderer;
+
     //[SerializeField] private CapsuleCollider _capsuleCollider;
-    float ChaosRotation=0;
+    float ChaosRotation = 0;
     private bool Flee = false;
     private Tween YOYO;
     private Tween FreeFall;
@@ -32,6 +33,10 @@ public class EnemyAI : MonoBehaviour
     private Vector3 StartPos;
     private Transform Player;
     private Material[] m_materials;
+    private Collider[] col;
+    private Collider bosscol;
+    private bool BossHit = false;
+
     private void OnEnable()
     {
         KillZone.OnEnemyDetected += OnKillZoneDetected;
@@ -40,7 +45,6 @@ public class EnemyAI : MonoBehaviour
         //BossAi.OnShotHit += BossHitted;
     }
 
-    
 
     private void OnDisable()
     {
@@ -50,7 +54,6 @@ public class EnemyAI : MonoBehaviour
         //BossAi.OnShotHit -= BossHitted;
     }
 
-    
 
     private void Start()
     {
@@ -65,16 +68,18 @@ public class EnemyAI : MonoBehaviour
             StartPos.y = GroundOffset;
             transform.position = StartPos;
         }
-        
+
+        bosscol = BossAi.Instance.GetCollider();
     }
 
     private void FixedUpdate()
     {
         if (Flee)
         {
-            transform.position += transform.forward * RunSpeed*Time.deltaTime;
+            transform.position += transform.forward * RunSpeed * Time.deltaTime;
         }
     }
+
     private void OnLineCrossed()
     {
         gameObject.SetActive(false);
@@ -82,9 +87,11 @@ public class EnemyAI : MonoBehaviour
 
     public void BossHitted()
     {
+        BossHit = true;
         RagdollActive(true);
-        SetCollision(true,GroundCollider);
+        SetCollision(true, GroundCollider);
     }
+
     private void ReceivePlayer(PlayerMovement player)
     {
         Player = player.transform;
@@ -92,7 +99,7 @@ public class EnemyAI : MonoBehaviour
 
     private void OnKillZoneDetected(Transform t)
     {
-        if (t!=transform && !Flee)
+        if (t != transform && !Flee)
         {
             return;
         }
@@ -101,19 +108,20 @@ public class EnemyAI : MonoBehaviour
         {
             return;
         }
-        
+
         SetChaos();
     }
 
-   
+
     void SetChaos()
     {
-        if (Flee )
+        if (Flee)
         {
             return;
         }
+
         Flee = true;
-        
+
         float randomval = Random.Range(MinFleeRotation, MaxFleeRotation);
         ChaosRotation = -randomval;
         transform.eulerAngles = Vector3.zero;
@@ -123,38 +131,35 @@ public class EnemyAI : MonoBehaviour
         {
             return;
         }
-        YOYO= DOTween.To(() => ChaosRotation, value => ChaosRotation = value, randomval, Rotationduration)
+
+        YOYO = DOTween.To(() => ChaosRotation, value => ChaosRotation = value, randomval, Rotationduration)
             .SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear)
             .OnStart(() =>
             {
                 //Debug.Log("RandomVal " + randomval + " chaosval " + ChaosRotation);
             }).OnUpdate(
-                () =>
-                {
-                    transform.eulerAngles = new Vector3(0, ChaosRotation, 0);
-                    
-                });
-        
-        
+                () => { transform.eulerAngles = new Vector3(0, ChaosRotation, 0); });
+
+
         m_animator.SetTrigger("Run");
 //        Debug.Log("rot va "+ChaosRotation);
     }
+
     public void RagdollActive(bool activestatus)
     {
-        
-            //m_animator.SetTrigger("Dead");
-            m_animator.enabled = !activestatus;
-            foreach (Rigidbody rb in RigRigidbodies)
-            {
-                rb.isKinematic = !activestatus;
-                //rb.AddForce(Vector3.forward*5,ForceMode.Impulse);
-            }
-            return;
-            //StartCoroutine(ragdollactivedelayed(activestatus));
-            
-        
-       // ragdollactivedelayed(activestatus);
+        //m_animator.SetTrigger("Dead");
+        m_animator.enabled = !activestatus;
+        foreach (Rigidbody rb in RigRigidbodies)
+        {
+            rb.isKinematic = !activestatus;
+            //rb.AddForce(Vector3.forward*5,ForceMode.Impulse);
+        }
 
+        return;
+        //StartCoroutine(ragdollactivedelayed(activestatus));
+
+
+        // ragdollactivedelayed(activestatus);
     }
 
     public void Fly()
@@ -162,9 +167,9 @@ public class EnemyAI : MonoBehaviour
         IsFlying = true;
         KillTWeens();
         RagdollActive(false);
-        SetCollision(true,GroundCollider);
-        
+        SetCollision(true, GroundCollider);
     }
+
     public void Dead(Collider Col)
     {
         GroundCollider = Col;
@@ -173,33 +178,35 @@ public class EnemyAI : MonoBehaviour
         {
             return;
         }
-        
+
         IsDead = true;
         Flee = false;
         if (YOYO.IsActive())
         {
             YOYO.Kill();
         }
-        ChangeColor();
-        FreeFall=transform.DOLocalMove(Vector3.zero, 0.6f).SetEase(Ease.Linear).OnStart(() =>
-        {
-            RandomFallforce();
-        });
-        RagdollActive(true);
-        SetCollision(false,Col);
-        transform.parent = Player;
-        
 
+        ChangeColor();
+        FreeFall = transform.DOLocalMove(Vector3.zero, 0.6f).SetEase(Ease.Linear).OnStart(() => { RandomFallforce(); });
+        RagdollActive(true);
+        SetCollision(false, Col);
+        transform.parent = Player;
+    }
+
+    void SetBossCollision(Collider BossCol)
+    {
+        foreach (Collider c in col)
+        {
+            Physics.IgnoreCollision(BossCol, c, true);
+        }
     }
 
     void ChangeColor()
     {
         foreach (Material m in m_materials)
         {
-            
             //m.color = DeathColor;
             m.DOColor(DeathColor, 0.35f).SetEase(Ease.Linear);
-
         }
     }
 
@@ -207,10 +214,12 @@ public class EnemyAI : MonoBehaviour
     {
         foreach (Rigidbody rb in RigRigidbodies)
         {
-            rb.AddTorque(new Vector3(Random.Range(-FreeFallTorque.x,FreeFallTorque.x),Random.Range(-FreeFallTorque.y,FreeFallTorque.y),
-                Random.Range(-FreeFallTorque.z,FreeFallTorque.z)),ForceMode.Impulse);
+            rb.AddTorque(new Vector3(Random.Range(-FreeFallTorque.x, FreeFallTorque.x),
+                Random.Range(-FreeFallTorque.y, FreeFallTorque.y),
+                Random.Range(-FreeFallTorque.z, FreeFallTorque.z)), ForceMode.Impulse);
         }
     }
+
     public void Floored(Collider GroundCol)
     {
         //RagdollActive(true);
@@ -220,18 +229,16 @@ public class EnemyAI : MonoBehaviour
         {
             YOYO.Kill();
         }
-        
+
         m_animator.enabled = false;
-        
-        SetCollision(true,GroundCol);
-        
+
+        SetCollision(true, GroundCol);
     }
 
-    public void SetCollision(bool status,Collider GroundCol)
+    public void SetCollision(bool status, Collider GroundCol)
     {
-        
 //        Debug.Log(transform.name+" Collision "+ status);
-        Collider[] col = GetComponentsInChildren<Collider>();
+        col = GetComponentsInChildren<Collider>();
         foreach (Collider c in col)
         {
             //transform.position
@@ -240,14 +247,18 @@ public class EnemyAI : MonoBehaviour
             {
                 transform.position = new Vector3(transform.position.x, StartPos.y, transform.position.z);
             }
-            
-            if (GroundCollider!=null)
+
+            if (GroundCollider != null)
             {
-                
-                Physics.IgnoreCollision(GroundCollider,c,!status);
+                Physics.IgnoreCollision(GroundCollider, c, !status);
                 //Debug.Log("Col Setted"+Physics.GetIgnoreCollision(GroundCollider,c));
             }
-            
+
+            if (BossHit)
+            {
+                Physics.IgnoreCollision(bosscol, c, true);
+            }
+
             //c.enabled = status;
         }
         //_capsuleCollider.enabled = true;
