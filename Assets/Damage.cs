@@ -39,7 +39,7 @@ public class Damage : MonoBehaviour
         if (transform.tag=="Boss")
         {
             float health;
-            health = (SceneManager.GetActiveScene().buildIndex+1)*20;
+            health = (SceneManager.GetActiveScene().buildIndex)*20;
             MaxHealth += health;
         }
         currenthealth = MaxHealth;
