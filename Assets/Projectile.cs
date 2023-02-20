@@ -79,7 +79,12 @@ public class Projectile : MonoBehaviour
                 FlyRotTweeen.Kill();
             }
 
-            ragdollTween.Kill();
+            if (ragdollTween.IsActive())
+            {
+                ragdollTween.Kill();
+            }
+            
+            _enemyAI.enabled = false;
         }
         //PlayHitFX(BossAi.Instance.transform);
     }
